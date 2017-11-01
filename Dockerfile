@@ -48,11 +48,30 @@ RUN bzip2 -d  samtools-${SAMVERSION}.tar.bz2 && \
 	./configure && \
 	make install
 
+
+##ContextMap installation (Java)## 
+ENV WORKPATHHOME /root/home/
+WORKDIR $WORKPATHHOME
+RUN apt-get update && apt-get install -y \
+	default-jre && wget https://www.bio.ifi.lmu.de/software/contextmap/contextmap_v2_7_9.zip && unzip contextmap_v2_7_9 && \
+	mkdir /usr/local/bin/contextmap && \
+	cp -a /root/home/ContextMap_v2.7.9/. /usr/local/bin/contextmap/
+ENV MYJAR=/usr/local/bin/contextmap/ContextMap_v2.7.9.jar 
+##Soapsplice##
+RUN wget -nv http://soap.genomics.org.cn/down/SOAPsplice-v1.10.tar.gz && \
+	tar -vxzf SOAPsplice-v1.10.tar.gz && \
+	cd mkdir  /usr/local/bin/soapsplice && \
+	cp SOAPsplice-v1.10/bin/* /usr/local/bin/soapsplice/ 
+ENV PATH $WORKPATH/soapsplice:$PATH
+
+
 ##cleanup the image
 RUN rm -rf sratoolkit.tar.gz && \
-	rm -rf hisat2-2.1.0-Linux_x86_64.zip \
-	rm -rf cufflinks-2.2.1.Linux_x86_64.tar.gz \
-	rm -rf samtools-${SAMVERSION}.tar.bz2 \
+	rm -rf hisat2-2.1.0-Linux_x86_64.zip && \
+	rm -rf cufflinks-2.2.1.Linux_x86_64.tar.gz && \
+	rm -rf samtools-${SAMVERSION}.tar.bz2 && \
+	rm -rf contextmap_v2_7_9.zip && \
+	rm -rf SOAPsplice-v1.10.tar.gz&& \
 	apt-get clean
 
 
