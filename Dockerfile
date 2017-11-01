@@ -56,7 +56,7 @@ RUN apt-get update && apt-get install -y \
 	default-jre && wget https://www.bio.ifi.lmu.de/software/contextmap/contextmap_v2_7_9.zip && unzip contextmap_v2_7_9 && \
 	mkdir /usr/local/bin/contextmap && \
 	cp -a /root/home/ContextMap_v2.7.9/. /usr/local/bin/contextmap/
-ENV MYJAR=/usr/local/bin/contextmap/ContextMap_v2.7.9.jar 
+ENV MYJAR /usr/local/bin/contextmap/ContextMap_v2.7.9.jar 
 ##Soapsplice##
 RUN wget -nv http://soap.genomics.org.cn/down/SOAPsplice-v1.10.tar.gz && \
 	tar -vxzf SOAPsplice-v1.10.tar.gz && \
