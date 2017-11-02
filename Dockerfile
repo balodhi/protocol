@@ -2,12 +2,7 @@ FROM ubuntu
 LABEL maintainer="blodhi@korea.ac.kr" description="learning the docker environment"
 USER root
 
-ENV WORKPATH="/usr/local/bin"\
-BOWTIE2VERSION="2.3.3.1"\
-TOPHAT2VERSION="2.1.1"\
-SAMVERSION="1.6"\
-WORKPATHHOME="/root/home/"\
-MYJAR="/usr/local/bin/contextmap/ContextMap_v2.7.9.jar"
+ENV WORKPATH="/usr/local/bin" BOWTIE2VERSION="2.3.3.1" TOPHAT2VERSION="2.1.1" SAMVERSION="1.6" WORKPATHHOME="/home/" MYJAR="/usr/local/bin/contextmap/ContextMap_v2.7.9.jar"
 ##set all of the paths##
 ENV PATH $WORKPATH/bowtie2-${BOWTIE2VERSION}-linux-x86_64:\
 $WORKPATH/tophat-${TOPHAT2VERSION}.Linux_x86_64:\
@@ -18,6 +13,7 @@ $WORKPATH/soapsplice:/usr/local/bin/STAR/source:$PATH
 
 ## --install packages --##
 RUN apt-get update && apt-get install -y \
+	binutils\
 	wget\
 	git\
 	build-essential\
@@ -79,10 +75,10 @@ RUN apt-get update && apt-get install -y \
 ##ContextMap installation (Java)## 
 #ENV WORKPATHHOME /root/home/
 #WORKDIR $WORKPATHHOME
-	cd  $WORKPATHHOME && \
+	cd  $WORKPATH && \
 	wget https://www.bio.ifi.lmu.de/software/contextmap/contextmap_v2_7_9.zip && unzip contextmap_v2_7_9 && \
 	mkdir /usr/local/bin/contextmap && \
-	cp -a /root/home/ContextMap_v2.7.9/. /usr/local/bin/contextmap/ && \
+	cp -a $WORKPATH/ContextMap_v2.7.9/. /usr/local/bin/contextmap/ && \
 #ENV MYJAR /usr/local/bin/contextmap/ContextMap_v2.7.9.jar 
 ##Soapsplice##
 	wget -nv http://soap.genomics.org.cn/down/SOAPsplice-v1.10.tar.gz && \
