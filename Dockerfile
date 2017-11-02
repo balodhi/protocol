@@ -64,14 +64,23 @@ RUN wget -nv http://soap.genomics.org.cn/down/SOAPsplice-v1.10.tar.gz && \
 	cp SOAPsplice-v1.10/bin/* /usr/local/bin/soapsplice/ 
 ENV PATH $WORKPATH/soapsplice:$PATH
 
+#Install STAR
+WORKDIR $WORKPATH
+RUN git clone https://github.com/alexdobin/STAR.git
+WORKDIR /usr/local/bin/STAR/
+RUN git checkout 2.5.3a
+WORKDIR /usr/local/bin/STAR/source
+RUN make STAR
+ENV PATH /usr/local/bin/STAR/source:$PATH
+
 
 ##cleanup the image
-RUN rm -rf sratoolkit.tar.gz && \
-	rm -rf hisat2-2.1.0-Linux_x86_64.zip && \
-	rm -rf cufflinks-2.2.1.Linux_x86_64.tar.gz && \
-	rm -rf samtools-${SAMVERSION}.tar.bz2 && \
-	rm -rf contextmap_v2_7_9.zip && \
-	rm -rf SOAPsplice-v1.10.tar.gz&& \
+RUN rm -rf $WORKPATH/sratoolkit.tar.gz && \
+	rm -rf $WORKPATH/hisat2-2.1.0-Linux_x86_64.zip && \
+	rm -rf $WORKPATH/cufflinks-2.2.1.Linux_x86_64.tar.gz && \
+	rm -rf $WORKPATH/samtools-${SAMVERSION}.tar.bz2 && \
+	rm -rf $WORKPATHHOME/contextmap_v2_7_9.zip && \
+	rm -rf $WORKPATHHOME/SOAPsplice-v1.10.tar.gz&& \
 	apt-get clean
 
 
