@@ -105,8 +105,8 @@ RUN apt-get update && apt-get install -y \
 	rm -rf $WORKPATH/hisat2-2.1.0-Linux_x86_64.zip && \
 	rm -rf $WORKPATH/cufflinks-2.2.1.Linux_x86_64.tar.gz && \
 	rm -rf $WORKPATH/samtools-${SAMVERSION}.tar && \
-	rm -rf $WORKPATHHOME/contextmap_v2_7_9.zip && \
-	rm -rf $WORKPATHHOME/SOAPsplice-v1.10.tar.gz&& \
+	rm -rf $WORKPATH/contextmap_v2_7_9.zip && \
+	rm -rf $WORKPATH/SOAPsplice-v1.10.tar.gz&& \
 	apt-get clean
 
 
