@@ -2,16 +2,6 @@ FROM ubuntu
 LABEL maintainer="blodhi@korea.ac.kr" description="learning the docker environment"
 USER root
 
-ENV WORKPATH="/usr/local/bin" BOWTIE2VERSION="2.3.3.1" TOPHAT2VERSION="2.1.1" SAMVERSION="1.6" WORKPATHHOME="/home/" MYJAR="/usr/local/bin/contextmap/ContextMap_v2.7.9.jar"
-##set all of the paths##
-ENV PATH $WORKPATH/bowtie2-${BOWTIE2VERSION}-linux-x86_64:\
-$WORKPATH/tophat-${TOPHAT2VERSION}.Linux_x86_64:\
-$WORKPATH/sratoolkit.2.8.2-1-ubuntu64/bin:\
-$WORKPATH/hisat2-2.1.0:\
-$WORKPATH/cufflinks-2.2.1.Linux_x86_64:\
-$WORKPATH/soapsplice:/usr/local/bin/STAR/source:$PATH
-
-## --install packages --##
 RUN apt-get update && apt-get install -y \
 	binutils\
 	wget\
@@ -26,7 +16,31 @@ RUN apt-get update && apt-get install -y \
 	python\
 	default-jre\
 	libcurl4-openssl-dev\
-	unzip &&\
+	unzip 
+
+ENV WORKPATH="/usr/local/bin" BOWTIE2VERSION="2.3.3.1" TOPHAT2VERSION="2.1.1" SAMVERSION="1.6" WORKPATHHOME="/home/" MYJAR="/usr/local/bin/ContextMap_v2.7.9/ContextMap_v2.7.9.jar"
+##set all of the paths##
+ENV PATH $WORKPATH/bowtie2-${BOWTIE2VERSION}-linux-x86_64:\
+$WORKPATH/tophat-${TOPHAT2VERSION}.Linux_x86_64:\
+$WORKPATH/sratoolkit.2.8.2-1-ubuntu64/bin:\
+$WORKPATH/hisat2-2.1.0:\
+$WORKPATH/cufflinks-2.2.1.Linux_x86_64:\
+$WORKPATH/SOAPsplice-v1.10:/usr/local/bin/STAR-2.5.3a/source:$PATH
+
+ADD softwares/bowtie2-${BOWTIE2VERSION}.zip\
+	softwares/tophat-${TOPHAT2VERSION}.tar.gz \
+	softwares/sratoolkit.tar.gz \
+	softwares/hisat2-2.1.0-Linux_x86_64.zip \
+	softwares/cufflinks-2.2.1.Linux_x86_64.tar.gz \
+	softwares/samtools-${SAMVERSION}.tar.bz2 \
+	softwares/contextmap_v2_7_9.zip \
+	softwares/SOAPsplice-v1.10.tar.gz \
+	softwares/STAR-2.5.3a.tar.gz \
+	$WORKPATH/ 
+
+RUN ls $WORKPATH && \
+
+## --install packages --##
 
 
 
@@ -37,15 +51,18 @@ RUN apt-get update && apt-get install -y \
 ##install latest bowtie2###
 #ENV BOWTIE2VERSION 2.3.3.1
 	cd $WORKPATH && \
-	wget -nv --output-document bowtie2-${BOWTIE2VERSION}.zip https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.3.1/bowtie2-${BOWTIE2VERSION}-linux-x86_64.zip/download && \
+	#wget -nv --output-document bowtie2-${BOWTIE2VERSION}.zip https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.3.1/bowtie2-${BOWTIE2VERSION}-linux-x86_64.zip/download && \
 	unzip bowtie2-${BOWTIE2VERSION}.zip && \
+#	ADD softwares/bowtie2-${BOWTIE2VERSION}.zip $WORKPATH/ \
 ##install latest tophat2
 #ENV TOPHAT2VERSION 2.1.1
-	wget -nv --output-document tophat-${TOPHAT2VERSION}.tar.gz http://ccb.jhu.edu/software/tophat/downloads/tophat-${TOPHAT2VERSION}.Linux_x86_64.tar.gz && \
-	tar -vxzf tophat-${TOPHAT2VERSION}.tar.gz && \
+	#wget -nv --output-document tophat-${TOPHAT2VERSION}.tar.gz http://ccb.jhu.edu/software/tophat/downloads/tophat-${TOPHAT2VERSION}.Linux_x86_64.tar.gz && \
+	#tar -vxzf tophat-${TOPHAT2VERSION}.tar.gz && \
+#	ADD softwares/tophat-${TOPHAT2VERSION}.tar.gz $WORKPATH/ \
 ## Install SRA Toolkit from http
-	wget -nv --output-document sratoolkit.tar.gz http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz && \
-	tar -vxzf sratoolkit.tar.gz && \
+	#wget -nv --output-document sratoolkit.tar.gz http://ftp-trace.ncbi.nlm.nih.gov/sra/sdk/current/sratoolkit.current-ubuntu64.tar.gz && \
+	#tar -vxzf sratoolkit.tar.gz && \
+#	ADD softwares/sratoolkit.tar.gz $WORKPATH/ \
 ## add toolkit path to path variable
 
 #ENV PATH $WORKPATH/sratoolkit.2.8.2-1-ubuntu64/bin:$PATH
@@ -53,20 +70,23 @@ RUN apt-get update && apt-get install -y \
 
 
 # hisat
-	wget -nv ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/hisat2-2.1.0-Linux_x86_64.zip && \
+	#wget -nv ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/hisat2-2.1.0-Linux_x86_64.zip && \
 	unzip hisat2-2.1.0-Linux_x86_64.zip && \
+#	ADD softwares/hisat2-2.1.0-Linux_x86_64.zip $WORKPATH/ \
 #ENV PATH $WORKPATH/hisat2-2.1.0:$PATH
 
 # cufflinks (links merge diff compare) binaries
-	wget -nv --output-document cufflinks-2.2.1.Linux_x86_64 http://cole-trapnell-lab.github.io/cufflinks/assets/downloads/cufflinks-2.2.1.Linux_x86_64.tar.gz && \
-	tar -vxzf cufflinks-2.2.1.Linux_x86_64 && \
+	#wget -nv --output-document cufflinks-2.2.1.Linux_x86_64.tar.gz http://cole-trapnell-lab.github.io/cufflinks/assets/downloads/cufflinks-2.2.1.Linux_x86_64.tar.gz && \
+	#tar -vxzf cufflinks-2.2.1.Linux_x86_64.tar.gz && \
+#	ADD softwares/cufflinks-2.2.1.Linux_x86_64.tar.gz $WORKPATH/ \
 #ENV PATH $WORKPATH/cufflinks-2.2.1.Linux_x86_64:$PATH
 
 ## Samtools 1.6##
 #ENV SAMVERSION 1.6
-	wget -nv https://github.com/samtools/samtools/releases/download/1.6/samtools-${SAMVERSION}.tar.bz2 && \
-	bzip2 -d  samtools-${SAMVERSION}.tar.bz2 && \
-	tar -xvf samtools-${SAMVERSION}.tar && \
+	#wget -nv https://github.com/samtools/samtools/releases/download/1.6/samtools-${SAMVERSION}.tar.bz2 && \
+#	COPY softwares/samtools-${SAMVERSION}.tar.bz2 $WORKPATH/ \
+#	bzip2 -d  samtools-${SAMVERSION}.tar.bz2 && \
+#	tar -xvf samtools-${SAMVERSION}.tar && \
 	cd samtools-${SAMVERSION} && \
 	./configure && \
 	make install && \
@@ -76,40 +96,42 @@ RUN apt-get update && apt-get install -y \
 #ENV WORKPATHHOME /root/home/
 #WORKDIR $WORKPATHHOME
 	cd  $WORKPATH && \
-	wget https://www.bio.ifi.lmu.de/software/contextmap/contextmap_v2_7_9.zip && unzip contextmap_v2_7_9 && \
-	mkdir /usr/local/bin/contextmap && \
-	cp -a $WORKPATH/ContextMap_v2.7.9/. /usr/local/bin/contextmap/ && \
+	#wget https://www.bio.ifi.lmu.de/software/contextmap/contextmap_v2_7_9.zip && \
+	unzip contextmap_v2_7_9.zip && \
+	#ADD softwares/contextmap_v2_7_9.zip $WORKPATH/ \
+	#mkdir /usr/local/bin/contextmap && \
+	#cp -a $WORKPATH/ContextMap_v2.7.9/. /usr/local/bin/contextmap/ && \
 #ENV MYJAR /usr/local/bin/contextmap/ContextMap_v2.7.9.jar 
 ##Soapsplice##
-	wget -nv http://soap.genomics.org.cn/down/SOAPsplice-v1.10.tar.gz && \
-	tar -vxzf SOAPsplice-v1.10.tar.gz && \
-	mkdir  /usr/local/bin/soapsplice && \
-	cp SOAPsplice-v1.10/bin/* /usr/local/bin/soapsplice/ && \
+	#wget -nv http://soap.genomics.org.cn/down/SOAPsplice-v1.10.tar.gz && \
+	#tar -vxzf SOAPsplice-v1.10.tar.gz && \
+	#ADD softwares/SOAPsplice-v1.10.tar.gz $WORKPATH/ \
+	#mkdir  /usr/local/bin/soapsplice && \
+	#cp SOAPsplice-v1.10/bin/* /usr/local/bin/soapsplice/ && \
 #ENV PATH $WORKPATH/soapsplice:$PATH
 
 #Install STAR
 #WORKDIR $WORKPATH
-	cd $WORKPATH && \
-	git clone https://github.com/alexdobin/STAR.git && \
-	cd /usr/local/bin/STAR/ && \
-	git checkout 2.5.3a && \
-	cd /usr/local/bin/STAR/source && \
+	#cd $WORKPATH && \
+	#git clone https://github.com/alexdobin/STAR.git && \
+	#cd /usr/local/bin/STAR-2.5.3a/ && \
+	#git checkout 2.5.3a && \
+	cd /usr/local/bin/STAR-2.5.3a/source && \
 	make STAR && \
 #ENV PATH /usr/local/bin/STAR/source:$PATH
 
 
 ##cleanup the image
+	cd $WORKPATH && \
 	rm -rf $WORKPATH/bowtie2-${BOWTIE2VERSION}.zip && \
 	rm -rf $WORKPATH/tophat-${TOPHAT2VERSION}.tar.gz && \
 	rm -rf $WORKPATH/sratoolkit.tar.gz && \
 	rm -rf $WORKPATH/hisat2-2.1.0-Linux_x86_64.zip && \
 	rm -rf $WORKPATH/cufflinks-2.2.1.Linux_x86_64.tar.gz && \
 	rm -rf $WORKPATH/samtools-${SAMVERSION}.tar && \
-	rm -rf $WORKPATHHOME/contextmap_v2_7_9.zip && \
-	rm -rf $WORKPATHHOME/SOAPsplice-v1.10.tar.gz&& \
+	rm -rf $WORKPATH/contextmap_v2_7_9.zip && \
+	rm -rf $WORKPATH/SOAPsplice-v1.10.tar.gz&& \
 	apt-get clean
-
-
 
 #ENV SHELL /bin/bash
 
