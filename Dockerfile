@@ -122,15 +122,14 @@ RUN ls $WORKPATH && \
 
 
 ##cleanup the image
-	cd $WORKPATH && \
-	rm -rf $WORKPATH/bowtie2-${BOWTIE2VERSION}.zip && \
-	rm -rf $WORKPATH/tophat-${TOPHAT2VERSION}.tar.gz && \
-	rm -rf $WORKPATH/sratoolkit.tar.gz && \
-	rm -rf $WORKPATH/hisat2-2.1.0-Linux_x86_64.zip && \
-	rm -rf $WORKPATH/cufflinks-2.2.1.Linux_x86_64.tar.gz && \
-	rm -rf $WORKPATH/samtools-${SAMVERSION}.tar && \
-	rm -rf $WORKPATH/contextmap_v2_7_9.zip && \
-	rm -rf $WORKPATH/SOAPsplice-v1.10.tar.gz&& \
+	rm -rf $WORKPATH/bowtie2-${BOWTIE2VERSION}.zip \
+		$WORKPATH/tophat-${TOPHAT2VERSION}.tar.gz \
+		$WORKPATH/sratoolkit.tar.gz \
+		$WORKPATH/hisat2-2.1.0-Linux_x86_64.zip \
+		$WORKPATH/cufflinks-2.2.1.Linux_x86_64.tar.gz \
+		$WORKPATH/samtools-${SAMVERSION}.tar \
+		$WORKPATH/contextmap_v2_7_9.zip \
+		$WORKPATH/SOAPsplice-v1.10.tar.gz && \
 	apt-get clean
 
 #ENV SHELL /bin/bash
