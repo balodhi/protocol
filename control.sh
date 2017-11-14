@@ -1,12 +1,14 @@
-#/bin/bash
+#!/bin/bash
 # A menu driven shell script sample template 
 
 printf "\nWelcome to the utility\n"
 printf "##############################################################\n"
-figlet -f slant "Petrichor [:#]"
+figlet -f slant "Zeeshan [:#]"
 printf "\n\n"
 printf "##############################################################\n\n"
 
+cd $WORKINGDIR
+DATAFOLDER=./inputdata
 # Record the start time of processing
 START=$(date +%s.%N)
 
@@ -15,38 +17,38 @@ START=$(date +%s.%N)
 #printf ("You have %d number of cores in your system and this program will use half of cores.")
 #$numCores=$(( numCores*coresP))
 printf "\n\n"
-printf "----------------sra Conversion to fastq-------------------------\n\n"
+printf "#####################sra Conversion to fastq#####################\n\n"
 #convert the SRA file to fastq
 
 #cd inputdata/sra/
-#ls *sra |while read id; 
+#ls inputdata/*sra |while read id; 
 #do fastq-dump $id;
 
 printf "Completed\n"
-printf "----------------Building Index File-------------------------\n\n"
+printf "#####################Building Index File#####################\n\n"
 # mapping read to h19 reference genome
 
-cd ..
+
 #reference=./inputdata/genome.fa
-#IDX=./inputdata/hisat_index
+IDX=$DATAFOLDER/hisat_index
 # Build a hisat2 index for the genome.
 #time hisat2-build $reference hisat_index
 printf "Completed\n"
 
 # Record the start time of pipeline processing
 
-printf "----------------Run hisat2-------------------------\n\n"
+printf "#####################Run hisat2#####################\n\n"
 #Run the hisat program
 START2=$(date +%s.%N)
-time hisat2 -p 12 -x $IDX -1 WT_R1.fastq -2 WT_R2.fastq -S WT_23.sam 2>control_1.log
-time hisat2 -p 12 -x $IDX -1 upf1-5_upf3-1_R1.fastq -2 upf1-5_upf3-1_R2.fastq -S upf1-5_upf3-1_23.sam 2>control_2.log
+time hisat2 -p 12 -x $IDX -1 $DATAFOLDER/WT_R1.fastq -2 $DATAFOLDER/WT_R2.fastq -S $DATAFOLDER/WT_23.sam 2>control_1.log
+time hisat2 -p 12 -x $IDX -1 $DATAFOLDER/upf1-5_upf3-1_R1.fastq -2 $DATAFOLDER/upf1-5_upf3-1_R2.fastq -S $DATAFOLDER/upf1-5_upf3-1_23.sam 2>control_2.log
 #time hisat2 -p 5 -x $IDX -U _____fileName.fastq -S siSUZ12_1.sam 2>siSUZ12_1.log
 #time hisat2 -p 5 -x $IDX -U _____fileName.fastq -S siSUZ12_2.sam 2>siSUZ12_2.log
 
 
 
 # convert sam files to bam files
-ls *sam |while read id;
+ls inputdata/*sam |while read id;
 do (nohup samtools sort -n -@ 12 -o ${id%%.*}.Nsort.bam $id &);
 done
 
