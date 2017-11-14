@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 # A menu driven shell script sample template 
 
 printf "\nWelcome to the utility\n"
@@ -63,3 +63,5 @@ echo "Time to execute the pipeline was $DIFFERENCE2"
 END=$(date +%s.%N)
 DIFFERENCE=$(echo "$END - $START" | bc)
 echo "Time to execute the script was $DIFFERENCE"
+
+set +x
