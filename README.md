@@ -38,7 +38,7 @@ java -jar $MYJAR
 `
 
 ### Working directory
-cd $WORKINGDIR
+`cd $WORKINGDIR`
 
 # Script
 ### Run Script
