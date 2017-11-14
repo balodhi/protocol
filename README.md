@@ -19,7 +19,7 @@ Following softwares are installed by the Dockerfile. zip files must be stored in
 #### Build
 
 `
-sudo docker build --rmi -t balodhi/myimage:1.0 .
+sudo docker build --rm -t balodhi/myimage:1.0 .
 `
 
 
