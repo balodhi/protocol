@@ -19,9 +19,9 @@ RUN apt-get update && apt-get install -y \
 	figlet\
 	unzip 
 
-ENV WORKPATH="/usr/local/bin" BOWTIE2VERSION="2.2.9" TOPHAT2VERSION="2.1.1" SAMVERSION="1.6" WORKPATHHOME="/home/" MYJAR="/usr/local/bin/ContextMap_v2.7.9/ContextMap_v2.7.9.jar"
+ENV WORKPATH="/usr/local/bin" BOWTIE2VERSION="2.2.9" TOPHAT2VERSION="2.1.1" SAMVERSION="1.6" WORKPATHHOME="/home/" MYJAR="/usr/local/bin/ContextMap_v2.7.9/ContextMap_v2.7.9.jar" WORKINGDIR="/root/home/"
 ##set all of the paths##
-ENV PATH $WORKPATH/bowtie2-${BOWTIE2VERSION}-linux-x86_64:\
+ENV PATH $WORKPATH/bowtie2-${BOWTIE2VERSION}:\
 $WORKPATH/tophat-${TOPHAT2VERSION}.Linux_x86_64:\
 $WORKPATH/sratoolkit.2.8.2-1-ubuntu64/bin:\
 $WORKPATH/hisat2-2.1.0:\
@@ -29,7 +29,7 @@ $WORKPATH/cufflinks-2.2.1.Linux_x86_64:\
 $WORKPATH/SOAPsplice-v1.10:/usr/local/bin/STAR-2.5.3a/source:\
 $WORKPATH/stringtie-1.3.3b.Linux_x86_64/:$PATH
 
-ADD softwares/bowtie2-${BOWTIE2VERSION}.zip\
+ADD softwares/bowtie2-${BOWTIE2VERSION}-linux-x86_64.zip\
 	softwares/tophat-${TOPHAT2VERSION}.tar.gz \
 	softwares/sratoolkit.tar.gz \
 	softwares/hisat2-2.1.0-Linux_x86_64.zip \
@@ -39,17 +39,19 @@ ADD softwares/bowtie2-${BOWTIE2VERSION}.zip\
 	softwares/SOAPsplice-v1.10.tar.gz \
 	softwares/STAR-2.5.3a.tar.gz \
 	softwares/stringtie-1.3.3b.Linux_x86_64.tar.gz \
+	control.sh\
 	$WORKPATH/ 
 
 ## --install packages --##
 
 #WORKDIR $WORKPATH
+RUN chmod +x control.sh && \
+	cd $WORKPATH && \
 
 ##install latest bowtie2###
 #ENV BOWTIE2VERSION 2.3.3.1
-	cd $WORKPATH && \
 	#wget -nv --output-document bowtie2-${BOWTIE2VERSION}.zip https://sourceforge.net/projects/bowtie-bio/files/bowtie2/2.3.3.1/bowtie2-${BOWTIE2VERSION}-linux-x86_64.zip/download && \
-	unzip bowtie2-${BOWTIE2VERSION}.zip && \
+	unzip bowtie2-${BOWTIE2VERSION}-linux-x86_64.zip && \
 #	ADD softwares/bowtie2-${BOWTIE2VERSION}.zip $WORKPATH/ \
 ##install latest tophat2
 #ENV TOPHAT2VERSION 2.1.1
@@ -119,7 +121,7 @@ ADD softwares/bowtie2-${BOWTIE2VERSION}.zip\
 
 
 ##cleanup the image
-	rm -rf $WORKPATH/bowtie2-${BOWTIE2VERSION}.zip \
+	rm -rf $WORKPATH/bowtie2-${BOWTIE2VERSION}-linux-x86_64.zip \
 		$WORKPATH/tophat-${TOPHAT2VERSION}.tar.gz \
 		$WORKPATH/sratoolkit.tar.gz \
 		$WORKPATH/hisat2-2.1.0-Linux_x86_64.zip \
