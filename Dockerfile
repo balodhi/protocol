@@ -16,6 +16,7 @@ RUN apt-get update && apt-get install -y \
 	python\
 	default-jre\
 	libcurl4-openssl-dev\
+	figlet\
 	unzip 
 
 ENV WORKPATH="/usr/local/bin" BOWTIE2VERSION="2.2.9" TOPHAT2VERSION="2.1.1" SAMVERSION="1.6" WORKPATHHOME="/home/" MYJAR="/usr/local/bin/ContextMap_v2.7.9/ContextMap_v2.7.9.jar"
