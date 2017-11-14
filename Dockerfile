@@ -17,9 +17,10 @@ RUN apt-get update && apt-get install -y \
 	default-jre\
 	libcurl4-openssl-dev\
 	figlet\
+	vim\
 	unzip 
 
-ENV WORKPATH="/usr/local/bin" BOWTIE2VERSION="2.2.9" TOPHAT2VERSION="2.1.1" SAMVERSION="1.6" WORKPATHHOME="/home/" MYJAR="/usr/local/bin/ContextMap_v2.7.9/ContextMap_v2.7.9.jar" WORKINGDIR="/root/home/"
+ENV WORKPATH="/usr/local/bin" BOWTIE2VERSION="2.2.9" TOPHAT2VERSION="2.1.1" SAMVERSION="1.6" WORKPATHHOME="/home/" MYJAR="/usr/local/bin/ContextMap_v2.7.9/ContextMap_v2.7.9.jar" WORKINGDIR="/root/home/" MYSCRIPT="/usr/local/bin/control"
 ##set all of the paths##
 ENV PATH $WORKPATH/bowtie2-${BOWTIE2VERSION}:\
 $WORKPATH/tophat-${TOPHAT2VERSION}.Linux_x86_64:\
