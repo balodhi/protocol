@@ -45,8 +45,9 @@ ADD softwares/bowtie2-${BOWTIE2VERSION}-linux-x86_64.zip\
 ## --install packages --##
 
 #WORKDIR $WORKPATH
-RUN chmod +x control.sh && \
-	cd $WORKPATH && \
+RUN cd $WORKPATH &&\
+	chmod +x control.sh && \
+
 
 ##install latest bowtie2###
 #ENV BOWTIE2VERSION 2.3.3.1
