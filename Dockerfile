@@ -18,14 +18,15 @@ RUN apt-get update && apt-get install -y \
 	libcurl4-openssl-dev\
 	unzip 
 
-ENV WORKPATH="/usr/local/bin" BOWTIE2VERSION="2.3.3.1" TOPHAT2VERSION="2.1.1" SAMVERSION="1.6" WORKPATHHOME="/home/" MYJAR="/usr/local/bin/ContextMap_v2.7.9/ContextMap_v2.7.9.jar"
+ENV WORKPATH="/usr/local/bin" BOWTIE2VERSION="2.2.9" TOPHAT2VERSION="2.1.1" SAMVERSION="1.6" WORKPATHHOME="/home/" MYJAR="/usr/local/bin/ContextMap_v2.7.9/ContextMap_v2.7.9.jar"
 ##set all of the paths##
 ENV PATH $WORKPATH/bowtie2-${BOWTIE2VERSION}-linux-x86_64:\
 $WORKPATH/tophat-${TOPHAT2VERSION}.Linux_x86_64:\
 $WORKPATH/sratoolkit.2.8.2-1-ubuntu64/bin:\
 $WORKPATH/hisat2-2.1.0:\
 $WORKPATH/cufflinks-2.2.1.Linux_x86_64:\
-$WORKPATH/SOAPsplice-v1.10:/usr/local/bin/STAR-2.5.3a/source:$PATH
+$WORKPATH/SOAPsplice-v1.10:/usr/local/bin/STAR-2.5.3a/source:\
+$WORKPATH/stringtie-1.3.3b.Linux_x86_64/:$PATH
 
 ADD softwares/bowtie2-${BOWTIE2VERSION}.zip\
 	softwares/tophat-${TOPHAT2VERSION}.tar.gz \
@@ -36,15 +37,10 @@ ADD softwares/bowtie2-${BOWTIE2VERSION}.zip\
 	softwares/contextmap_v2_7_9.zip \
 	softwares/SOAPsplice-v1.10.tar.gz \
 	softwares/STAR-2.5.3a.tar.gz \
+	softwares/stringtie-1.3.3b.Linux_x86_64.tar.gz \
 	$WORKPATH/ 
 
-RUN ls $WORKPATH && \
-
 ## --install packages --##
-
-
-
-
 
 #WORKDIR $WORKPATH
 
