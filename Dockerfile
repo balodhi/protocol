@@ -121,6 +121,7 @@ RUN cd $WORKPATH &&\
 	#git checkout 2.5.3a && \
 	cd /usr/local/bin/STAR-2.5.3a/source && \
 	make STAR && \
+	apt-get install bc && \
 #ENV PATH /usr/local/bin/STAR/source:$PATH
 
 
