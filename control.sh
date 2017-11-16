@@ -49,7 +49,7 @@ time hisat2 -p 12 -x $IDX -1 $DATAFOLDER/upf1-5_upf3-1_R1.fastq -2 $DATAFOLDER/u
 
 # convert sam files to bam files
 ls inputdata/*sam |while read id;
-do (nohup samtools sort -n -@ 12 -o ${id%%.*}.Nsort.bam $id &);
+do (nohup samtools sort -n -@2 -o ${id%%.*}.Nsort.bam $id &);
 done
 
 # using htseq-counts to quantify the gene experssion level
