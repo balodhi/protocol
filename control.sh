@@ -22,7 +22,9 @@ printf "#####################sra Conversion to fastq#####################\n\n"
 
 #cd inputdata/sra/
 #ls inputdata/*sra |while read id; 
-#do fastq-dump $id;
+#do fastq-dump --split-files --output-dir $DATAFOLDER/ $id;
+#rm -rf $id
+#done
 
 printf "Completed\n"
 printf "#####################Building Index File#####################\n\n"
