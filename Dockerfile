@@ -44,6 +44,7 @@ ADD softwares/bowtie2-${BOWTIE2VERSION}-linux-x86_64.zip\
 	softwares/STAR-2.5.3a.tar.gz \
 	softwares/stringtie-1.3.3b.Linux_x86_64.tar.gz \
 	softwares/subread-1.6.0-Linux-x86_64.tar.gz \
+	softwares/crac-2.5.0.tar.gz \
 	control.sh\
 	$WORKPATH/ 
 
@@ -125,6 +126,11 @@ RUN cd $WORKPATH &&\
 	cd /usr/local/bin/STAR-2.5.3a/source && \
 	make STAR && \
 	apt-get install -y bc && \
+	cd  $WORKPATH/crac-2.5.0 && \
+	./configure && \
+	make &&\
+	make install &&\
+	
 #ENV PATH /usr/local/bin/STAR/source:$PATH
 
 
