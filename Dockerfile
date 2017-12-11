@@ -44,6 +44,7 @@ ADD softwares/bowtie2-${BOWTIE2VERSION}-linux-x86_64.zip\
 	softwares/STAR-2.5.3a.tar.gz \
 	softwares/stringtie-1.3.3b.Linux_x86_64.tar.gz \
 	softwares/subread-1.6.0-Linux-x86_64.tar.gz \
+	softwares/htslib-1.6.tar.bz2 \
 	softwares/crac-2.5.0.tar.gz \
 	control.sh\
 	$WORKPATH/ 
@@ -97,6 +98,10 @@ RUN cd $WORKPATH &&\
 	cd samtools-${SAMVERSION} && \
 	./configure && \
 	make install && \
+	cd ../htslib-1.6 && \
+	./configure && \
+	make && \
+	make install && \
 
 
 ##ContextMap installation (Java)## 
@@ -143,8 +148,10 @@ RUN cd $WORKPATH &&\
 		$WORKPATH/samtools-${SAMVERSION}.tar \
 		$WORKPATH/contextmap_v2_7_9.zip \
 		$WORKPATH/SOAPsplice-v1.10.tar.gz \
+		$WORKPATH/crac-2.5.0.tar.gz \
+		$WORKPATH/htslib-1.6.tar.bz2 \
 		$WORKPATH/subread-1.6.0-Linux-x86_64 &&\
-	apt-get clean
+		apt-get clean
 
 #ENV SHELL /bin/bash
 
