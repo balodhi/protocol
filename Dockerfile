@@ -30,6 +30,7 @@ $WORKPATH/sratoolkit.2.8.2-1-ubuntu64/bin:\
 $WORKPATH/hisat2-2.1.0:\
 $WORKPATH/cufflinks-2.2.1.Linux_x86_64:\
 $WORKPATH/SOAPsplice-v1.10:/usr/local/bin/STAR-2.5.3a/source:\
+$WORKPATH/subread-1.6.0-Linux-x86_64/bin:\
 $WORKPATH/stringtie-1.3.3b.Linux_x86_64/:$PATH
 
 ADD softwares/bowtie2-${BOWTIE2VERSION}-linux-x86_64.zip\
@@ -42,6 +43,7 @@ ADD softwares/bowtie2-${BOWTIE2VERSION}-linux-x86_64.zip\
 	softwares/SOAPsplice-v1.10.tar.gz \
 	softwares/STAR-2.5.3a.tar.gz \
 	softwares/stringtie-1.3.3b.Linux_x86_64.tar.gz \
+	softwares/subread-1.6.0-Linux-x86_64.tar.gz \
 	control.sh\
 	$WORKPATH/ 
 
@@ -134,7 +136,8 @@ RUN cd $WORKPATH &&\
 		$WORKPATH/cufflinks-2.2.1.Linux_x86_64.tar.gz \
 		$WORKPATH/samtools-${SAMVERSION}.tar \
 		$WORKPATH/contextmap_v2_7_9.zip \
-		$WORKPATH/SOAPsplice-v1.10.tar.gz && \
+		$WORKPATH/SOAPsplice-v1.10.tar.gz \
+		$WORKPATH/subread-1.6.0-Linux-x86_64 &&\
 	apt-get clean
 
 #ENV SHELL /bin/bash
