@@ -40,7 +40,7 @@ printf "Completed\n"
 printf "#####################Run hisat2#####################\n\n"
 #Run the hisat program
 START2=$(date +%s.%N)
-time hisat2 -p 12 -x $IDX -1 $DATAFOLDER/WT_R1.fastq -2 $DATAFOLDER/WT_R2.fastq -S $DATAFOLDER/WT_23.sam 2>control_1.log
+#time hisat2 -p 12 -x $IDX -1 $DATAFOLDER/WT_R1.fastq -2 $DATAFOLDER/WT_R2.fastq -S $DATAFOLDER/WT_23.sam 2>control_1.log
 time hisat2 -p 12 -x $IDX -1 $DATAFOLDER/upf1-5_upf3-1_R1.fastq -2 $DATAFOLDER/upf1-5_upf3-1_R2.fastq -S $DATAFOLDER/upf1-5_upf3-1_23.sam 2>control_2.log
 #time hisat2 -p 5 -x $IDX -U _____fileName.fastq -S siSUZ12_1.sam 2>siSUZ12_1.log
 #time hisat2 -p 5 -x $IDX -U _____fileName.fastq -S siSUZ12_2.sam 2>siSUZ12_2.log
