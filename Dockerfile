@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y \
 	figlet\
 	vim\
 	moreutils\
+	htop\
 	unzip 
 
 ENV WORKPATH="/usr/local/bin" BOWTIE2VERSION="2.2.9" TOPHAT2VERSION="2.1.1" SAMVERSION="1.6" WORKPATHHOME="/home/" MYJAR="/usr/local/bin/ContextMap_v2.7.9/ContextMap_v2.7.9.jar" WORKINGDIR="/root/home/" MYSCRIPT="/usr/local/bin/control"
@@ -27,20 +28,27 @@ ENV PATH $WORKPATH/bowtie2-${BOWTIE2VERSION}:\
 $WORKPATH/tophat-${TOPHAT2VERSION}.Linux_x86_64:\
 $WORKPATH/sratoolkit.2.8.2-1-ubuntu64/bin:\
 $WORKPATH/hisat2-2.1.0:\
+$WORKPATH/hisat-0.1.6-beta:\
 $WORKPATH/cufflinks-2.2.1.Linux_x86_64:\
 $WORKPATH/SOAPsplice-v1.10:/usr/local/bin/STAR-2.5.3a/source:\
+$WORKPATH/subread-1.6.0-Linux-x86_64/bin:\
 $WORKPATH/stringtie-1.3.3b.Linux_x86_64/:$PATH
 
 ADD softwares/bowtie2-${BOWTIE2VERSION}-linux-x86_64.zip\
 	softwares/tophat-${TOPHAT2VERSION}.tar.gz \
 	softwares/sratoolkit.tar.gz \
 	softwares/hisat2-2.1.0-Linux_x86_64.zip \
+	softwares/hisat-0.1.6-beta-Linux_x86_64.zip\
 	softwares/cufflinks-2.2.1.Linux_x86_64.tar.gz \
 	softwares/samtools-${SAMVERSION}.tar.bz2 \
 	softwares/contextmap_v2_7_9.zip \
 	softwares/SOAPsplice-v1.10.tar.gz \
 	softwares/STAR-2.5.3a.tar.gz \
 	softwares/stringtie-1.3.3b.Linux_x86_64.tar.gz \
+	softwares/subread-1.6.0-Linux-x86_64.tar.gz \
+	softwares/htslib-1.6.tar.bz2 \
+	softwares/crac-2.5.0.tar.gz \
+	softwares/gmap-gsnap-2017-11-15.tar.gz \
 	control.sh\
 	$WORKPATH/ 
 
@@ -75,6 +83,7 @@ RUN cd $WORKPATH &&\
 # hisat
 	#wget -nv ftp://ftp.ccb.jhu.edu/pub/infphilo/hisat2/downloads/hisat2-2.1.0-Linux_x86_64.zip && \
 	unzip hisat2-2.1.0-Linux_x86_64.zip && \
+	unzip hisat-0.1.6-beta-Linux_x86_64.zip && \
 #	ADD softwares/hisat2-2.1.0-Linux_x86_64.zip $WORKPATH/ \
 #ENV PATH $WORKPATH/hisat2-2.1.0:$PATH
 
@@ -92,6 +101,10 @@ RUN cd $WORKPATH &&\
 #	tar -xvf samtools-${SAMVERSION}.tar && \
 	cd samtools-${SAMVERSION} && \
 	./configure && \
+	make install && \
+	cd ../htslib-1.6 && \
+	./configure && \
+	make && \
 	make install && \
 
 
@@ -121,8 +134,21 @@ RUN cd $WORKPATH &&\
 	#git checkout 2.5.3a && \
 	cd /usr/local/bin/STAR-2.5.3a/source && \
 	make STAR && \
+<<<<<<< HEAD
 	apt-get install -y bc\
 	htop && \
+=======
+	apt-get install -y bc && \
+	cd  $WORKPATH/crac-2.5.0 && \
+	./configure && \
+	make &&\
+	make install &&\
+	cd $WORKPATH/gmap-gsnap-2017-11-15 && \
+	./configure &&\
+	make &&\
+	make install &&\
+	
+>>>>>>> 5b531421f0118f33feeeabe46830a36cf8e0bbec
 #ENV PATH /usr/local/bin/STAR/source:$PATH
 
 
@@ -131,11 +157,16 @@ RUN cd $WORKPATH &&\
 		$WORKPATH/tophat-${TOPHAT2VERSION}.tar.gz \
 		$WORKPATH/sratoolkit.tar.gz \
 		$WORKPATH/hisat2-2.1.0-Linux_x86_64.zip \
+		$WORKPATH/hisat-0.1.6-beta-Linux_x86_64.zip\
 		$WORKPATH/cufflinks-2.2.1.Linux_x86_64.tar.gz \
 		$WORKPATH/samtools-${SAMVERSION}.tar \
 		$WORKPATH/contextmap_v2_7_9.zip \
-		$WORKPATH/SOAPsplice-v1.10.tar.gz && \
-	apt-get clean
+		$WORKPATH/SOAPsplice-v1.10.tar.gz \
+		$WORKPATH/crac-2.5.0.tar.gz \
+		$WORKPATH/htslib-1.6.tar.bz2 \
+		$WORKPATH/gmap-gsnap-2017-11-15.tar.gz \
+		$WORKPATH/subread-1.6.0-Linux-x86_64 &&\
+		apt-get clean
 
 #ENV SHELL /bin/bash
 
