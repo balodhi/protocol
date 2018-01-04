@@ -20,9 +20,13 @@ RUN apt-get update && apt-get install -y \
 	vim\
 	moreutils\
 	htop\
+	python-pip\
+	python-dev\
+	build-essential\
 	unzip 
 
 ENV WORKPATH="/usr/local/bin" BOWTIE2VERSION="2.2.9" TOPHAT2VERSION="2.1.1" SAMVERSION="1.6" WORKPATHHOME="/home/" MYJAR="/usr/local/bin/ContextMap_v2.7.9/ContextMap_v2.7.9.jar" WORKINGDIR="/root/home/" MYSCRIPT="/usr/local/bin/control"
+ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/usr/local/lib
 ##set all of the paths##
 ENV PATH $WORKPATH/bowtie2-${BOWTIE2VERSION}:\
 $WORKPATH/tophat-${TOPHAT2VERSION}.Linux_x86_64:\
@@ -106,6 +110,7 @@ RUN cd $WORKPATH &&\
 	./configure && \
 	make && \
 	make install && \
+	pip install numpy \
 
 
 ##ContextMap installation (Java)## 
@@ -146,7 +151,7 @@ RUN cd $WORKPATH &&\
 	
 #ENV PATH /usr/local/bin/STAR/source:$PATH
 
-	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib &&\
+	
 ##cleanup the image
 	rm -rf $WORKPATH/bowtie2-${BOWTIE2VERSION}-linux-x86_64.zip \
 		$WORKPATH/tophat-${TOPHAT2VERSION}.tar.gz \
