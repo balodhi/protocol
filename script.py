@@ -9,9 +9,9 @@ for i in range(3):
 	sys.system(command)
 	end_time = time.time()
 	elapsed_time.append(end_time-start_time)
-	print("Time Elapsed for the command:",elapsed_time[i]
+	print("Time Elapsed for the command:",elapsed_time[i])
 
-#timed=np.array(timeDiff)
+timed=np.array(timeDiff)
 stdev = np.std(timeD)
 meanT = np.mean(timeD)
 
