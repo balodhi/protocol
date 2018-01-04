@@ -54,7 +54,8 @@ ADD softwares/bowtie2-${BOWTIE2VERSION}-linux-x86_64.zip\
 	softwares/crac-2.5.0.tar.gz \
 	softwares/gmap-gsnap-2017-11-15.tar.gz \
 	control.sh\
-	$WORKPATH/ 
+	$WORKPATH/
+ADD script.py $WORKPATHHOME
 
 ## --install packages --##
 
@@ -110,7 +111,7 @@ RUN cd $WORKPATH &&\
 	./configure && \
 	make && \
 	make install && \
-	pip install numpy \
+	yes | pip install numpy &&\
 
 
 ##ContextMap installation (Java)## 
