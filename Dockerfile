@@ -134,21 +134,17 @@ RUN cd $WORKPATH &&\
 	#git checkout 2.5.3a && \
 	cd /usr/local/bin/STAR-2.5.3a/source && \
 	make STAR && \
-<<<<<<< HEAD
-	apt-get install -y bc\
-	htop && \
-=======
 	apt-get install -y bc && \
 	cd  $WORKPATH/crac-2.5.0 && \
 	./configure && \
 	make &&\
 	make install &&\
-	cd $WORKPATH/gmap-gsnap-2017-11-15 && \
+	export export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib &&\
+	cd $WORKPATH/gmap-2017-11-15 && \
 	./configure &&\
 	make &&\
 	make install &&\
 	
->>>>>>> 5b531421f0118f33feeeabe46830a36cf8e0bbec
 #ENV PATH /usr/local/bin/STAR/source:$PATH
 
 
@@ -165,7 +161,7 @@ RUN cd $WORKPATH &&\
 		$WORKPATH/crac-2.5.0.tar.gz \
 		$WORKPATH/htslib-1.6.tar.bz2 \
 		$WORKPATH/gmap-gsnap-2017-11-15.tar.gz \
-		$WORKPATH/subread-1.6.0-Linux-x86_64 &&\
+		$WORKPATH/subread-1.6.0-Linux-x86_64.tar.gz &&\
 		apt-get clean
 
 #ENV SHELL /bin/bash
