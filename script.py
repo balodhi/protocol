@@ -2,20 +2,6 @@ import os as sys
 import time as time
 import numpy as np
 
-
-command = "ls"
-timeDiff = []
-for i in range(3):
-	start_time = time.time()
-	sys.system(command)
-	end_time = time.time()
-	elapsed_time.append(end_time-start_time)
-	print("Time Elapsed for the command:",elapsed_time[i])
-
-timed=np.array(timeDiff)
-stdev = np.std(timeD)
-meanT = np.mean(timeD)
-
 commands = ["ls", \
 			"time"]
 elapsed_time = []
@@ -43,7 +29,6 @@ for j in range(0,len(commands)):
 	print ("Mean of execuation:", meanT)
 	print("*"*30)
 	elapsed_time = []
-
 
 	fid.write("*"*30+"\n")
 	fid.write(commands[j]+"\n")
