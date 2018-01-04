@@ -139,7 +139,6 @@ RUN cd $WORKPATH &&\
 	./configure && \
 	make &&\
 	make install &&\
-	export export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib &&\
 	cd $WORKPATH/gmap-2017-11-15 && \
 	./configure &&\
 	make &&\
@@ -147,7 +146,7 @@ RUN cd $WORKPATH &&\
 	
 #ENV PATH /usr/local/bin/STAR/source:$PATH
 
-
+	export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib &&\
 ##cleanup the image
 	rm -rf $WORKPATH/bowtie2-${BOWTIE2VERSION}-linux-x86_64.zip \
 		$WORKPATH/tophat-${TOPHAT2VERSION}.tar.gz \
