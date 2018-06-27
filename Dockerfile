@@ -168,7 +168,34 @@ RUN cd $WORKPATH &&\
 		$WORKPATH/gmap-gsnap-2017-11-15.tar.gz \
 		$WORKPATH/subread-1.6.0-Linux-x86_64.tar.gz &&\
 		apt-get clean
+ADD softwares/RapMap-0.5.0_linux_x86_64.tar.gz \
+	softwares/olego.bin.linux.x86_64.v1.1.5.tgz\
+ 	$WORKPATH/
+ENV PATH $WORKPATH/RapMap-0.5.0_linux_x86_64/bin:\
+$WORKPATH/olego.bin.linux.x86_64.v1.1.5:\
+$WORKPATH/hpg-aligner/bin/:$PATH
 
+RUN apt-get update && apt-get install -y \
+		libcurl4-gnutls-dev\
+		libxml2-dev\
+		libgsl0-dev\
+		check\
+		scons \
+		perl 
+RUN cd $WORKPATH && \
+    git clone https://github.com/opencb/hpg-aligner.git && \
+    cd hpg-aligner && \
+    git submodule update --init && \
+    cd lib/hpg-libs && \
+    git checkout master && \
+    cd ../.. && \
+    git checkout master
+    #scons 
+RUN git clone https://github.com/itmat/rum.git && \
+	cd rum && \
+	perl Makefile.PL && \
+	make && \
+	make install 
 #ENV SHELL /bin/bash
 
 
