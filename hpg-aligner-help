@@ -1,0 +1,20 @@
+hpg-alinger help
+
+has some code error so change the files
+go to 
+cd $WORKPATH/hpg-aligner/
+vim lib/hpg-libs/bioinfo-libs/bioformats/features/region/test/SConscript
+LIBS = [ 'check', 'common', 'curl', 'dl', 'm', 'gsl', 'gslcblas', 'rt', 'z' ], -> LIBS = [ 'check','subunit', 'common', 'curl', 'dl', 'm', 'gsl', 'gslcblas', 'rt', 'z' ],
+save and exit (Esc :wq)
+
+vim lib/hpg-libs/bioinfo-libs/bioformats/vcf/test/SConscript
+LIBS = [ 'check', 'common', 'curl', 'dl', 'm', 'gsl', 'gslcblas', 'rt', 'z' ], -> LIBS = [ 'check','subunit', 'common', 'curl', 'dl', 'm', 'gsl', 'gslcblas', 'rt', 'z' ],
+save and exit (Esc :wq)
+
+vim lib/hpg-libs/common-libs/containers/test/SConscript
+
+containerstest['LIBS'] += ['check', 'm', 'rt'] -> containerstest['LIBS'] += ['check','subunit', 'm', 'rt']
+save and exit (Esc :wq)
+
+and then run 
+scons
