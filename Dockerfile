@@ -195,7 +195,8 @@ RUN git clone https://github.com/itmat/rum.git && \
 	cd rum && \
 	perl Makefile.PL && \
 	make && \
-	make install 
+	make install
+RUN pip install tqdm
 #ENV SHELL /bin/bash
 
 
