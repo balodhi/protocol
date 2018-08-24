@@ -26,7 +26,7 @@ sudo docker build --rm -t balodhi/myimage:1.0 .
 ### Run
 
 ```
-sudo docker run -ti --rm -v /Volumes/External/Downloads/protocol/inputdata/:/root/home/inputdata balodhiku/myimage:1.0
+sudo docker run -ti --rm -v /Volumes/External/Downloads/protocol/inputdata/:/root/home/inputdata balodhi/myimage:1.0
 ```
 
 #### Run programs
