@@ -49,7 +49,7 @@ type
 
 `vim control`
 
-
+java -jar $MYJAR mapper -reads ./Fastq_files/WT_23_1.fastq ./Fastq_files/WT_23_2.fastq -aligner_name bowtie2 -aligner_bin /usr/local/bin/bowtie2-2.2.9/bowtie2 -indexer_bin /usr/local/bin/bowtie2-2.2.9/bowtie2 -indices ./contextmap_index/indices/abc_0.idx -genome ./contextmap_index/fasta/ -o ./contextmap_index/
 
 
 
